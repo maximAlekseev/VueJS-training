@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VueJS tuts</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h1 v-once>{{ text }}</h1>
+        <a href="#" @click="refreshTitle()">refreshTitle</a><br/>
+        <a :href="link">Link</a><br/>
+        <p v-html="fullLink">fullLink</p>
+        <button @click="counter++">+1</button>
+        <button @click="counter--">-1</button>
+        <button @click="secCounter++">++1</button>
+        <p>{{counter}}</p>
+        <p>{{secCounter}}</p>
+        <p>Result: {{ result }}</p>
+        <p @mousemove="updateCoord">Coords: {{ x }} / {{ y }} - <span @mousemove.stop="">KEKKEKEKE</span>
+        </p>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
