@@ -5,8 +5,8 @@
         <transition
           name="flip"
           mode="out-in"
-          enter-active-class="animated flipInY"
-          leave-active-class="animated flipOutY"
+          enter-active-class="animated rollIn"
+          leave-active-class="animated rollOut"
         >
           <component :is="activeComponent" :quiz="currentProperties"></component>
         </transition>
@@ -19,6 +19,7 @@
   import { EventBus } from './main';
   import Quiz from './components/Quiz';
   import NextQuiz from './components/NextQuiz';
+  import Finish from './components/Finish';
 
   const quizArr = [
     {
@@ -59,11 +60,23 @@
           if (this.currentQuiz < this.tests.length) {
             this.activeComponent = 'app-quiz';
           } else {
-            alert('That is all!');
+            let finish = confirm('That is all! Repeat?');
+
+            if (finish) {
+              this.currentQuiz = 0;
+              this.activeComponent = 'app-quiz';
+            } else {
+              this.currentQuiz = 0;
+              this.activeComponent = 'app-finish';
+            }
           }
         })
         .$on('correct-answer', () => {
           this.activeComponent = 'app-next-quiz';
+        })
+        .$on('start-new-quiz', () => {
+          this.currentQuiz = 0;
+          this.activeComponent = 'app-quiz';
         })
     },
     data() {
@@ -82,7 +95,8 @@
     },
     components: {
       appQuiz: Quiz,
-      appNextQuiz: NextQuiz
+      appNextQuiz: NextQuiz,
+      appFinish: Finish
     }
   }
 </script>
